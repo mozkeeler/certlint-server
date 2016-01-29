@@ -1,8 +1,17 @@
 <%= render "index" %>
 <br>
+<% @errors.each do |error| %>
+<p><%= error %></p>
+<% end %>
+<% if @host %>
+<p><%= "Using certificate chain from '" + @host + "'" %></p>
+<% end %>
+<% if @root %>
+<p><%= "Using certificate from local file '" + @root.original_filename + "'" %></p>
+<% end %>
 <div class="overflow">
 <div class="float">
-<ul>
+<ul class="top">
 <% @chain.each do |subjectDN, categories| %>
   <li><%= subjectDN %>
   <ul>
