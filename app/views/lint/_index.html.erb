@@ -1,0 +1,16 @@
+<h1>certlint</h1>
+<%= form_for :lint do |f| %>
+  <p>
+    <%= f.label :root %>
+    <%= f.file_field :root %>
+  </p>
+
+  <p>
+    <%= f.label :host %>
+    <%= f.url_field :host %>
+  </p>
+
+  <p>
+    <%= submit_tag 'run certlint' %>
+  </p>
+<% end %>

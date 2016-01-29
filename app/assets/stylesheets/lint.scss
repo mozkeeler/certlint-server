@@ -1,0 +1,45 @@
+// Place all the styles related to the lint controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+ul {
+  font: 10pt Courier New, sans-serif;
+  list-style-type: none;
+}
+
+li.Informational {
+  background-color: #ECFCFF;
+  color: deepskyblue;
+}
+
+li.Notice {
+  background-color: #FFFFDF;
+  color: #606000;
+}
+
+li.Warning {
+  background-color: #FFEFDF;
+  color: #DF6000;
+}
+
+li.Error {
+  background-color: #FFDFDF;
+  color: #CC0000;
+}
+
+li.Failure {
+  color: darkred;
+}
+
+label {
+  float: left;
+  min-width: 4em;
+  padding-top: 6px;
+}
+
+div.float {
+  float: left;
+}
+
+div.overflow {
+  overflow: hidden;
+}

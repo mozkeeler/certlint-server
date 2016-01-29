@@ -1,0 +1,25 @@
+<%= render "index" %>
+<br>
+<div class="overflow">
+<div class="float">
+<ul>
+<% @chain.each do |subjectDN, categories| %>
+  <li><%= subjectDN %>
+  <ul>
+  <% categories.each do |category, messages| %>
+    <li class=<%= category %>><%= category %>
+    <ul>
+    <% messages.each do |message| %>
+      <span><li class=<%= category %>><%= message %></li></span>
+    <% end %>
+    </ul>
+    </li>
+  <% end %>
+  </ul>
+  </li>
+  <br>
+<% end %>
+</ul>
+</div>
+</div>
+<%= render "footer" %>
