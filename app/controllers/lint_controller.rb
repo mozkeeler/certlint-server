@@ -43,6 +43,7 @@ class LintController < ApplicationController
         socket = TCPSocket.new uri.host, uri.port
         sslcontext = OpenSSL::SSL::SSLContext.new
         sslsocket = OpenSSL::SSL::SSLSocket.new socket, sslcontext
+        sslsocket.hostname = uri.host
         sslsocket.connect
         sslsocket.peer_cert_chain.each do |cert|
           der = cert.to_der()
