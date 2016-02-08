@@ -16,6 +16,13 @@ def messageToPair message
     "E" => "Error",
     "F" => "Failure",
   }
+  messageTranslations = {
+    "E: CA certificates must include commonName in subject" =>
+    "N: CA certificates should include commonName in subject for compatibility"
+  }
+  if messageTranslations.has_key?(message)
+    message = messageTranslations[message]
+  end
   pair = /(.): (.*)/.match(message).captures
   pair[0] = messageTypeToDescription[pair[0]]
   return pair
@@ -47,7 +54,11 @@ class LintController < ApplicationController
         sslsocket.connect
         sslsocket.peer_cert_chain.each do |cert|
           der = cert.to_der()
-          messages = CertLint::CABLint.lint(der)
+          begin
+            messages = CertLint::CABLint.lint(der)
+          rescue Exception => certlintException
+            messages = ["F: Fatal error: CertLint::CABLint.lint failed"]
+          end
           id = certToIdentifier(cert)
           @chain[id] = {}
           organizeMessages(@chain[id], messages)
@@ -67,7 +78,11 @@ class LintController < ApplicationController
           messages = []
           der = rootData
         end
-        messages += CertLint::CABLint.lint(der)
+        begin
+          messages += CertLint::CABLint.lint(der)
+        rescue Exception => certlintException
+          messages += ["F: Fatal error: CertLint::CABLint.lint failed"]
+        end
         x509Cert = OpenSSL::X509::Certificate.new der
         id = certToIdentifier(x509Cert)
         @chain[id] = {}
